@@ -67,6 +67,22 @@ struct node *start(struct node *head)
 	head->next = NULL;
 	return rhead;
 }
+struct node *reverse2(struct node *head, struct node *rhead)
+{
+	struct node *temp;
+	if (rhead == NULL&&head->next != NULL)
+	{
+		temp = head->next;
+		head->next = NULL;
+		rhead = reverse2(temp, NULL);
+		temp->next = head;
+	}
+	if (head->next == NULL&&rhead == NULL)
+	{
+		return head;
+	}
+	return rhead;
+}
 int check(int *nums, int len, struct node *head)
 {
 	int index = 0;
@@ -97,13 +113,21 @@ int main()
 			printf("Empty Linked List\n\n");
 			continue;
 		}
-		if (check(test[j].ans, test[j].size, start(head)))
+		if (check(test[j].ans, test[j].size, head=start(head)))
 		{
 			printf("Method 1 passed\n\n");
 		}
 		else
 		{
 			printf("Method 1 Failed\n");
+		}
+		if (check(test[j].arr, test[j].size, reverse2(head, NULL)))
+		{
+			printf("Method 2 passed\n\n");
+		}
+		else
+		{
+			printf("Method 2 Failed\n");
 		}
 		free(head);
 		head = NULL;
